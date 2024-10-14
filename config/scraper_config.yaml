@@ -17,9 +17,9 @@ scrapers:
       job_listing_class: "cell-title"
       td_job_title_class: "cell-title"  # Define the class for the job title <td>
       job_link_selector: "a.link"  # Define the selector for the job link
-
       next_button_class: "list-controls__pagination__item paginationNextLink"
-
+      
+      
   # Add other scrapers here, like another_company:
   # another_company:
   #   class: "src.scrapers.another_company_scraper.AnotherCompanyScraper"

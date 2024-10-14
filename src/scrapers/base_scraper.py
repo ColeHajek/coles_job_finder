@@ -1,5 +1,7 @@
+import re
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 class BaseScraper:
     def __init__(self, scraper_name, config):
@@ -8,14 +10,13 @@ class BaseScraper:
         The child scrapers will pass their specific 'scraper_name' and 'config'.
         """
         self.scraper_name = scraper_name
+        
         self.url_reconstructor = config['base_url']
         self.headers = config['headers']
         self.starting_urls = config['starting_urls']
-        self.job_listing_class = config['job_listing_class']
-        self.job_link_selector = config['job_link_selector']
-        self.next_button_class = config['next_button_class']
-
+        self.config = config
         self.job_urls = set()
+        self.time_scraped = datetime.now().strftime('%Y-%m-%d')
 
     def send_request(self, url):
         """
@@ -56,7 +57,6 @@ class BaseScraper:
                 # Get the next page URL for pagination
                 current_url = self.get_next_page_url(soup)
         
-
     def get_next_page_url(self, soup):
         """
         Finds and returns the URL of the next page in the pagination, if available.
@@ -78,11 +78,17 @@ class BaseScraper:
 
             if job_link and 'href' in job_link.attrs:
                 job_url = self.ensure_full_url(job_link['href'])
+                self.extract_job_page_content(job_url)
                 self.job_urls.add(job_url)
                 print(f"Found job URL: {job_url}")
-
+                       
     def ensure_full_url(self, relative_url):
         """
         Constructs a full URL from a relative URL if needed.
         """
         return relative_url if relative_url.startswith("http") else f"{self.base_url}{relative_url}"
+    
+    def extract_job_page_content(self, job_url):
+        """Exctracts content of """
+        return
+        

@@ -23,9 +23,10 @@ def run_scrapers(companies, config):
 
             # Initialize the scraper with its specific config and universal headers
             scrapers.append(scraper_class(company,scraper_config))
+            
         else:
             print(f"{company} scraper does not exist.")
-
+    
     for scraper in scrapers:
         print(f"Running {scraper.scraper_name} job scraper...")
         scraper.scrape_job_urls()
@@ -34,6 +35,7 @@ def run_scrapers(companies, config):
             print(f"Found {len(new_jobs)} new job(s) at {scraper.scraper_name}:")
             for job in new_jobs:
                 print(f"URL: {job}")
+                print(f"Info:",scraper.extract_job_page_content(job))
         else:
             print(f"No new jobs found for {scraper.scraper_name}.")
 
