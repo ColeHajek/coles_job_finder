@@ -1,0 +1,31 @@
+# config/scraper_config.yaml
+
+headers:
+  User-Agent: 'Mozilla/5.0'
+
+available_scrapers:
+  - booz_allen
+  #- another_company
+
+scrapers:
+  booz_allen:
+    config:
+      base_url: "https://careers.boozallen.com"
+      starting_urls:
+        - "https://careers.boozallen.com/teams/datascience/?1487=%5B3581%2C195100%2C3582%5D&1487_format=1019&listFilterMode=1&jobRecordsPerPage=20&"
+        - "https://careers.boozallen.com/teams/digital/?1487=%5B195100%2C3582%2C3581%5D&1487_format=1019&listFilterMode=1&jobRecordsPerPage=20&"
+      job_listing_class: "cell-title"
+      td_job_title_class: "cell-title"  # Define the class for the job title <td>
+      job_link_selector: "a.link"  # Define the selector for the job link
+
+      next_button_class: "list-controls__pagination__item paginationNextLink"
+
+  # Add other scrapers here, like another_company:
+  # another_company:
+  #   class: "src.scrapers.another_company_scraper.AnotherCompanyScraper"
+  #   config:
+  #     base_urls:
+  #       - "https://anothercompany.com/jobs"
+  #     job_listing_class: "job-listing"
+  #     job_link_selector: "a.job-link"
+  #     next_button_class: "pagination-next"
